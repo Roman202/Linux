@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# read-defaut: програма значення по умовчуванію, для виводу короткого достатнього нажати Enter.
+
+read -e -p "What is your name? " -i $USER
+echo "You answered: '$REPLY'"

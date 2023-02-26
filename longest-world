@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# longest-world2 : пошук самої довгої строки в файлі
+
+for i; do
+	if [[ -r "$1" ]]; then
+		max_word=
+		max_len=0
+		for i in $(strings "$1"); do
+			len="$(echo "$i" | wc -c)"
+			if (( len > max_len )); then
+				max_len="$len"
+				max_word="$i"
+			fi
+		done
+		echo "$1: '$max_word' ($max_len charecters)"
+	fi
+	shift
+done

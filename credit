@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# credit : Сценарій вичислення суми щомісячних сплат по кредиту
+
+PROGNAME="${0##*/}" # Для получення імені файла використовується операція підставки параметра
+
+usage () {
+  cat <<- EOF
+  Usage: $PROGNAME PRINCIPAL INTEREST MONTHS
+
+  Where:
+
+  PRINCIPAL is the amount of the loan.
+  INTEREST is the APR as a number (7% = 0.07).
+  MONTHS is the length of the loan's term.
+EOF
+}
+
+if (($# != 3)); then
+  usage
+  exit 1
+fi
+
+principal=$1
+interest=$2
+months=$3
+
+monthly_rate=$(echo "scale=10; $interest / 12" | bc)
+numerator=$(echo "scale=10; $monthly_rate * ((1 + $monthly_rate)^$months)" | bc)
+denominator=$(echo "scale=10; ((1 + $monthly_rate)^$months) - 1" | bc)
+monthly_payment=$(echo "scale=2; $principal * $numerator / $denominator" | bc)
+
+echo "For a loan of $principal over $months months at an interest rate of $interest%, the monthly payment is $monthly_payment."
+

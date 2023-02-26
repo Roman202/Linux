@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# case-menu: Програма виводу системної інформації.
+
+#            Управління з її допомогою.
+
+clear
+echo "
+Please Select:
+
+A. Display System Information
+B. Display Disk Space
+C. Display Home Space Utilization
+Q. Quit
+"
+read -p "Enter selection [A, B, C or Q] > "
+
+case "$REPLY" in
+	q|Q)   echo "Program terminfted."
+		exit
+		;;
+	a|A)   echo "Home: $HOSTNAME"
+		uptime
+		;;
+	b|B)   df -h
+		;;
+	c|C)   if [[ "$(id -u)" -eq 0 ]]; then
+		echo "Home Space Utilization (ALL Users)"
+		du -sh /home/*
+	else
+		echo "Home Space Utilization ($USER)"
+		du -sh "$HOME"
+	fi
+	;;
+	*)      echo "Invalid entry" >&2
+	exit 1
+	;;
+esac

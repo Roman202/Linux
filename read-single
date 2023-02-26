@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# read-single: читання більшість значень в змінну за за мовчуванням.
+
+read -p "Enter one or more values > "
+
+echo "REPLY = '$REPLY'"

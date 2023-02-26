@@ -1,0 +1,16 @@
+#!/bin/bash -x
+
+# trouble: Сценарій для демонстрації поширених помилок.
+
+number=1
+
+echo "number=$number" # Відкладка
+set +x # Включити трасировку.
+
+
+if [ $number = 1 ]; then
+	echo "Number is equal to 1."
+else
+	echo "Number is not equal to 1."
+fi
+set +x # Вимкнути трасировку.

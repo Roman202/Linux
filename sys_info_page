@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# Roman
+
+# Додавання report_iptime 14 лютого
+
+TITLE="System Information Report for $HOSTNAME"
+CURRENT_TIME=$(date +"%x %r %Z")
+TIME_STAMP="Generated $CURRENT_TIME, by $USER"
+
+cat << _EOF_
+
+<html>
+  <head>
+    <title>System Information Report For linuxbox</title>
+  </head>
+  <body>
+    <h1>System Information Report For linuxbox</h1>
+    <p>Generated 02/19/2023 21:51:25 PM EDT, by Roman</p>
+
+                   <h2>System Uptime</h2>
+                   <pre>$(uptime)</pre>
+   
+    
+                   <h2>Disk Space Utilization</h2>
+		   <pre>$(df -h)</pre>
+
+                   <h2>Home Space Utilization</h2>
+		   <pre>$(du -sh /home/*)</pre>
+		   
+		   report_home_space() {
+      local format="%8s%10s%10s\n"
+      local i dir_list total_files total_dirs total_side user_name
+      if [[ "$(id -u)" -eq 0 ]]; then
+            dir_list=/home/*
+            user_name="All Users"
+      else
+            dir_list="$HOME"
+            user_name="$USER"
+      fi
+      
+      echo "<h2>Home Space Utilization ($user_name)</h2>
+
+      find i in $dir_list; do
+        
+            total_files="$(find "$i" -type f | wc -l)"
+            total_dirs="$(find "$i" -type d | wc -l)"
+            total_size=$(du -sk "$i" | cut -f 1)
+            echo "<h3>$i</h3>"
+            echo "<pre>"
+            printf "$format" "Dirs" "Files" "Size"
+            printf "$format" "____" "_____" "____"
+            printf "$format" "$total_dirs" "$total_files" "$total_siza"
+            echo "</pre>"
+      done
+      return
+}
+
+  </body>
+</html>
+_EOF_

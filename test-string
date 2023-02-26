@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# test-string: перевірка значення рядка
+
+ANSWER=maybe
+
+if [ -z "ANSWER" ]; then
+      echo "Then is no answer." >&2
+      exit 1
+fi
+
+if [ "$ANSWER" =="yes" ]; then
+      echo "The answer is YES."
+elif [ "ANSWER" == "no" ]; then
+      echo "The answer is NO."
+elif [ "ANSWER" == "maybe" ]; then
+      echo "The answer is MAYBE."
+else
+      echo "The answer is UNKNOW."
+fi
